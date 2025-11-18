@@ -22,13 +22,17 @@ export default function Posts() {
   }, [])
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-14">
+    <section id="posts" className="mx-auto max-w-6xl px-6 py-16">
       <div className="flex items-end justify-between mb-6">
-        <h2 className="text-2xl md:text-3xl font-semibold text-white">Latest Posts</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-white">Travel Journal</h2>
       </div>
 
       {loading ? (
-        <p className="text-slate-300">Loading posts...</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({length:6}).map((_, i) => (
+            <div key={i} className="h-56 rounded-xl bg-slate-800/40 ring-1 ring-white/10 animate-pulse" />
+          ))}
+        </div>
       ) : posts.length === 0 ? (
         <div className="text-slate-300 bg-slate-800/40 ring-1 ring-white/10 rounded-xl p-6">
           No posts yet. Add some via the API. Example: POST /api/posts
@@ -36,14 +40,14 @@ export default function Posts() {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {posts.map((post) => (
-            <article key={post.id} className="rounded-xl overflow-hidden bg-slate-800/50 ring-1 ring-white/10 hover:ring-blue-500/40 transition">
+            <article key={post.id} className="group rounded-2xl overflow-hidden bg-slate-800/50 ring-1 ring-white/10 hover:ring-fuchsia-500/40 transition">
               {post.image_url ? (
-                <img src={post.image_url} alt={post.title} className="h-40 w-full object-cover" />
+                <img src={post.image_url} alt={post.title} className="h-44 w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
               ) : (
-                <div className="h-40 w-full bg-gradient-to-br from-blue-600/30 to-fuchsia-500/30" />
+                <div className="h-44 w-full bg-gradient-to-br from-blue-600/30 to-fuchsia-500/30" />
               )}
               <div className="p-4">
-                <h3 className="text-white font-semibold">{post.title}</h3>
+                <h3 className="text-white font-semibold line-clamp-1">{post.title}</h3>
                 <p className="mt-2 text-sm text-slate-300 line-clamp-4">{post.content}</p>
               </div>
             </article>
